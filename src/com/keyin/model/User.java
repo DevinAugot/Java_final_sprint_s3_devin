@@ -67,6 +67,17 @@ public class User {
         isDoctor = doctor;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isDoctor=" + isDoctor +
+                '}';
+    }
 
 
 }

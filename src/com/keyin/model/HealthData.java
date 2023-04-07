@@ -9,9 +9,9 @@ public class HealthData {
     private double height;
     private int steps;
     private int heartRate;
-    private String date;
+    private Date date;
 
-    public HealthData(int id, int userId, double weight, double height, int steps, int heartRate, String date) {
+    public HealthData(int id, int userId, double weight, double height, int steps, int heartRate, Date date) {
         this.id = id;
         this.userId = userId;
         this.weight = weight;
@@ -73,11 +73,22 @@ public class HealthData {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "HealthData{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", steps=" + steps +
+                ", heartRate=" + heartRate +
+                ", date='" + date + '\'' +
+                '}';
+    }
 
 
-    // Constructor, getters, and setters
 }
