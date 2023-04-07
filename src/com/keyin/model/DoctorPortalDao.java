@@ -1,5 +1,8 @@
 package com.keyin.model;
+import com.keyin.model.HealthDataDao;
+import java.sql.Connection;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class DoctorPortalDao {
@@ -11,18 +14,16 @@ public class DoctorPortalDao {
         healthDataDao = new HealthDataDao();
     }
 
-    public Doctor getDoctorById(int doctorId) {
-        // Implement this method
+    public Doctor getDoctorById(int doctorId) throws SQLException {
+        return userDao.getDoctorById(doctorId);
     }
 
-    public List<User> getPatientsByDoctorId(int doctorId) {
-        // Implement this method
+    public List<User> getPatientsByDoctorId(int doctorId) throws SQLException {
+        return userDao.getPatientsByDoctorId(doctorId);
     }
 
-    public List<HealthData> getHealthDataByPatientId(int patientId) {
-        // Implement this method
+    public List<HealthData> getHealthDataByPatientId(int patientId) throws SQLException {
+        return healthDataDao.getHealthDataByUserId(patientId);
     }
 
-    // Add more methods for other doctor-specific tasks
 }
-

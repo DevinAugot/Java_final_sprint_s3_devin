@@ -1,48 +1,49 @@
 package com.keyin.model;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class HealthDataDao {
- // may have to change this 
-        private Connection connection;
+//    public boolean createHealthData(HealthData healthData) { /* insert health data into database */ }
+//    public HealthData getHealthDataById(int id) { /* get health data by id from database */ }
+//    public boolean updateHealthData(HealthData healthData) { /* update health data in the database */ }
+//
+//    public boolean deleteHealthData(int id) { /* delete health data from the database */ }
+//
+//
 
-        // constructor to initialize the connection
-        public HealthDataDao(Connection connection) {
-            this.connection = connection;
-        }
+    // this needs to be fixed prepared statement is not correct
+public List<HealthData> getHealthDataByUserId(int userId) throws SQLException {
+    PreparedStatement statement = null;
+    Connection conn = null;
+    List<HealthData> healthDataList = new ArrayList<>();
 
-        // retrieve all health data for a specific user
-        public List<HealthData> getAllHealthDataForUser(int userId) throws SQLException {
-            String query = "SELECT * FROM health_data WHERE user_id = ?";
+    String query = "SELECT * FROM health_data WHERE user_id = ?";
 
-            List<HealthData> healthDataList = new ArrayList<>();
+    statement = conn.prepareStatement(query);
+    statement.setInt(1, userId);
 
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, userId);
+    ResultSet resultSet = statement.executeQuery();
 
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("id");
-                        double weight = resultSet.getDouble("weight");
-                        double height = resultSet.getDouble("height");
-                        int steps = resultSet.getInt("steps");
-                        int heartRate = resultSet.getInt("heart_rate");
-                        Date date = resultSet.getDate("date");
+    while (resultSet.next()) {
+        HealthData healthData = new HealthData(
+                resultSet.getInt("id"),
+                resultSet.getInt("user_id"),
+                resultSet.getDouble("weight"),
+                resultSet.getDouble("height"),
+                resultSet.getInt("steps"),
+                resultSet.getInt("heart_rate"),
+                resultSet.getDate("date")
+        );
+        healthDataList.add(healthData);
+    }
 
-                        HealthData healthData = new HealthData(id, userId, weight, height, steps, heartRate, date);
-                        healthDataList.add(healthData);
-                    }
-                }
-            }
-
-            return healthDataList;
-        }
-
-
-    public HealthData getHealthDataById(int id) { /* get health data by id from database */ }
-    public List<HealthData> getHealthDataByUserId(int userId) { /* get health data by user id from database */ }
-    public boolean updateHealthData(HealthData healthData) { /* update health data in the database */ }
-    public boolean deleteHealthData(int id) { /* delete health data from the database */ }
+    return healthDataList;
 }
+
+
+
+}
+

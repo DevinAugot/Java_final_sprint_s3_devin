@@ -141,6 +141,170 @@ public class DatabaseConnection {
         }
     }
 
+    public void insertIntoUserTable(Connection conn,int id, String firstName, String lastName, String email, String password, boolean isDoctor) {
+        PreparedStatement statement = null;
+        try {
+            String query = "INSERT INTO users (id, first_name, last_name, email, password, is_doctor) VALUES (?, ?, " +
+                    "?, " +
+                    "?, ?, ?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.setString(2, firstName);
+            statement.setString(3, lastName);
+            statement.setString(4, email);
+            statement.setString(5, password);
+            statement.setBoolean(6,isDoctor);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User has been added to database");
+            } else {
+                System.out.println("ERROR: User could not be added to database, Check SQL syntax");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void insertIntoDoctorPatientTable(Connection conn,int doctor_id, int patient_id) {
+        PreparedStatement statement = null;
+        try {
+            String query = "INSERT INTO doctor_patient (doctor_id, patient_id) " +
+                    "VALUES " +
+                    "(?, ?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, doctor_id);
+            statement.setInt(2, patient_id);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Doctor & patient record has been added to database");
+            } else {
+                System.out.println("ERROR: Doctor & patient record could not be added to database, Check SQL syntax");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+
+    public void insertIntoHealthDataTable(Connection conn,int id, int user_id, double weight, double height, int steps,
+                                          int heart_rate, Date date) {
+        PreparedStatement statement = null;
+        try {
+            String query = "INSERT INTO health_data (id, user_id, weight, height, steps, heart_rate, date) " +
+                    "VALUES " +
+                    "(?, ?, ?, ?, ?, ?, ?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.setInt(2, user_id);
+            statement.setDouble(3, weight);
+            statement.setDouble(4,height);
+            statement.setInt(5, steps);
+            statement.setInt(6, heart_rate);
+            statement.setDate(7,date);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Health Data  has been added to database");
+            } else {
+                System.out.println("ERROR: Health Data record could not be added to database, Check SQL syntax");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+
+    }
+    public void insertIntoMedReminderTable(Connection conn,int id, int user_id, String medicine_name, String dosage,
+                                           Date schedule, Date start_date, Date end_date) {
+        PreparedStatement statement = null;
+        try {
+            String query = "INSERT INTO medicine_reminders (id, user_id, weight, height, steps, heart_rate) " +
+                    "VALUES " +
+                    "(?, ?, ?, ?, ?, ?, ?)";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            statement.setInt(2, user_id);
+            statement.setString(3, medicine_name);
+            statement.setString(4,dosage);
+            statement.setDate(5, schedule);
+            statement.setDate(6, start_date);
+            statement.setDate(7,end_date);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Health Data  has been added to database");
+            } else {
+                System.out.println("ERROR: Health Data record could not be added to database, Check SQL syntax");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+public void insertIntoRecommendationsTable(Connection conn,int id, int user_id, String recommendation_text, Date date) {
+    PreparedStatement statement = null;
+    try {
+        String query = "INSERT INTO recommendations (id, user_id, recommendation_text, date) " +
+                "VALUES " +
+                "(?, ?, ?, ?)";
+        statement = conn.prepareStatement(query);
+        statement.setInt(1, id);
+        statement.setInt(2, user_id);
+        statement.setString(3, recommendation_text);
+        statement.setDate(4, date);
+
+
+        int rowsAffected = statement.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Recommendations has been added to database");
+        } else {
+            System.out.println("ERROR: Recommendations record could not be added to database, Check SQL syntax");
+        }
+    } catch (Exception e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
 
 }
 
