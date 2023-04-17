@@ -128,7 +128,7 @@ public class HealthMonitoringApp {
         user8.setMedicalLicenseNum("");
         user8.setSpecialization("");
         users.add(user8);
-//
+//added this
 //        // Insert all users into the database
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {

@@ -21,11 +21,12 @@ public UserDao() {
                     "?,?, ?, ?, ?)";
             // Database logic to insert data using PREPARED Statement
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, user.getFirstName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, hashedPassword);
-            statement.setBoolean(5, user.isDoctor());
+            statement.setInt(1,user.getId());
+            statement.setString(2, user.getFirstName());
+            statement.setString(3, user.getLastName());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, hashedPassword);
+            statement.setBoolean(6, user.isDoctor());
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
