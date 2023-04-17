@@ -1,7 +1,7 @@
 package com.keyin.model;
 
 public class Doctor extends User{
-    // Getters and setters for the new properties
+
     private String medicalLicenseNumber;
     private String specialization;
     private int id;
@@ -11,6 +11,8 @@ public class Doctor extends User{
     private String password;
     private boolean isDoctor;
 
+    public Doctor() {
+    }
     public String getMedicalLicenseNumber() {
         return medicalLicenseNumber;
     }
@@ -89,11 +91,7 @@ public class Doctor extends User{
 
 
 
-    public Doctor(int id, String firstName, String lastName, String email, String password, boolean isDoctor, String medicalLicenseNumber, String specialization) {
-        super(id, firstName, lastName, email, password, isDoctor);
-        this.medicalLicenseNumber = medicalLicenseNumber;
-        this.specialization = specialization;
-    }
+
     @Override
     public String toString() {
         return "Doctor{" +

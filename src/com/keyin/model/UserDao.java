@@ -1,180 +1,273 @@
 package com.keyin.model;
-
 import org.mindrot.jbcrypt.BCrypt;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private Connection connection;
 
-    public UserDao() {
-    }
-
-    public boolean createUser(User user) throws SQLException {
-        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-
-        String query = "INSERT INTO users (first_name, last_name, email, password, is_doctor, doctor_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, user.getFirstName());
-        statement.setString(2, user.getLastName());
-        statement.setString(3, user.getEmail());
-        statement.setString(4, hashedPassword);
-        statement.setBoolean(5, user.isDoctor());
-        statement.setInt(6, user.getId());
-
-        int rowsAffected = statement.executeUpdate();
-
-        return rowsAffected > 0;
-    }
-
-    public User getUserById(int id) throws SQLException {
-        User user = null;
-
-        String query = "SELECT * FROM users WHERE id = ?";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, id);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getBoolean("is_doctor")
-
-            );
+        public User getUserById(Connection conn, int id) throws SQLException {
+            User user = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+            try {
+                String query = "SELECT * FROM users WHERE id=?";
+                statement = conn.prepareStatement(query);
+                statement.setInt(1, id);
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    user = new User();
+                    user.setId(resultSet.getInt("id"));
+                    user.setFirstName(resultSet.getString("first_name"));
+                    user.setLastName(resultSet.getString("last_name"));
+                    user.setPassword(resultSet.getString("password"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setDoctor(resultSet.getBoolean("is_doctor"));
+                    user.setMedicalLicenseNum(resultSet.getString("medical_license_num"));
+                    user.setSpecialization(resultSet.getString("specialization"));
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            } finally {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            }
+            return user;
         }
 
+
+    public User getUserByEmail(Connection conn, String email) throws SQLException {
+        User user = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            String query = "SELECT * FROM users WHERE email=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                user.setPassword(resultSet.getString("password"));
+                user.setEmail(resultSet.getString("email"));
+                user.setDoctor(resultSet.getBoolean("is_doctor"));
+                user.setMedicalLicenseNum(resultSet.getString("medical_license_num"));
+                user.setSpecialization(resultSet.getString("specialization"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
         return user;
     }
+    public boolean updateUser(Connection conn, User user) {
+        PreparedStatement statement = null;
+        try {
+            String query = "UPDATE users SET first_name=?, last_name=?, email=?, is_doctor=? WHERE id=?";
+            statement = conn.prepareStatement(query);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setBoolean(4, user.isDoctor());
+            statement.setInt(5, user.getId());
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                System.out.println("ERROR: User record could not be updated in database, Check SQL syntax");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+    }
 
-    public User getUserByEmail(String email) throws SQLException {
-        User user = null;
+    public boolean deleteUser(Connection conn, int id) throws SQLException {
+        PreparedStatement statement = null;
+        try {
+            String query = "DELETE FROM users WHERE id=?";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User with ID " + id + " has been deleted from the database.");
+                return true;
+            } else {
+                System.out.println("No user with ID " + id + " found in the database.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+        }
+    }
 
-        String query = "SELECT * FROM users WHERE email = ?";
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, email);
+    public LoginResult verifyPassword(Connection conn, String email, String password) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            while (true) {
+                String query = "SELECT * FROM users WHERE email = ?";
+                statement = conn.prepareStatement(query);
+                statement.setString(1, email);
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    int userId = resultSet.getInt("id");
+                    String firstName = resultSet.getString("first_name");
+                    String lastName = resultSet.getString("last_name");
+                    String hashedPassword = resultSet.getString("password");
+                    boolean isDoctor = resultSet.getBoolean("is_doctor");
+                    if (BCrypt.checkpw(password, hashedPassword)) {
+                        User user = new User();
+                        System.out.println("Login successful!");
+                        return new LoginResult(user, isDoctor);
+                    }
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
+        // user not found
+        return null;
+    }
 
-        ResultSet resultSet = statement.executeQuery();
+    public class LoginResult {
+        private final User user;
+        private final boolean isDoctor;
 
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getBoolean("is_doctor")
-
-            );
+        public LoginResult(User user, boolean isDoctor) {
+            this.user = user;
+            this.isDoctor = isDoctor;
         }
 
-        return user;
-    }
-
-    public boolean updateUser(User user) throws SQLException {
-        String query = "UPDATE users " +
-                "SET first_name = ?, last_name = ?, email = ?, is_doctor = ?, doctor_id = ? " +
-                "WHERE id = ?";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, user.getFirstName());
-        statement.setString(2, user.getLastName());
-        statement.setString(3, user.getEmail());
-        statement.setBoolean(4, user.isDoctor());
-        statement.setInt(5, user.getId());
-
-
-        int rowsAffected = statement.executeUpdate();
-
-        return rowsAffected > 0;
-    }
-
-    public boolean deleteUser(int id) throws SQLException {
-        String query = "DELETE FROM users WHERE id = ?";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, id);
-
-        int rowsAffected = statement.executeUpdate();
-
-        return rowsAffected > 0;
-    }
-
-    public boolean verifyPassword(String email, String password) throws SQLException {
-        String query = "SELECT password FROM users WHERE email = ?";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, email);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()) {
-            String hashedPassword = resultSet.getString("password");
-            return BCrypt.checkpw(password, hashedPassword);
+        public String getUser() {
+            return user != null ? user.getFirstName() : null;
         }
 
-        return false;
+        public boolean isDoctor() {
+            return isDoctor;
+        }
+
+        public boolean isSuccess() {
+            return user != null;
+        }
     }
-    public List<User> getPatientsByDoctorId(int doctorId) throws SQLException {
+    public Doctor getDoctorById(Connection conn, int doctorId) throws SQLException {
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Doctor doctor = null;
+
+        try {
+
+            String query = "SELECT * FROM users WHERE id = ? AND is_doctor = true";
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, doctorId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next() && resultSet.getBoolean("is_doctor")) {
+                doctor = new Doctor();
+                doctor.setId(resultSet.getInt("id"));
+                doctor.setFirstName(resultSet.getString("first_name"));
+                doctor.setLastName(resultSet.getString("last_name"));
+                doctor.setEmail(resultSet.getString("email"));
+                doctor.setPassword(resultSet.getString("password"));
+                doctor.setDoctor(resultSet.getBoolean("is_doctor"));
+                doctor.setMedicalLicenseNumber(resultSet.getString("medical_license_num"));
+                doctor.setSpecialization(resultSet.getString("specialization"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return doctor;
+    }
+
+    public List<User> getPatientsByDoctorId(Connection conn,int doctorId) throws SQLException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
         List<User> patients = new ArrayList<>();
 
-        String query = "SELECT * FROM users WHERE is_doctor = 0 AND doctor_id = ?";
+        try {
+            String query = "SELECT u.id, u.first_name, u.last_name, u.email, u.password, u.is_doctor " +
+                    "FROM users u " +
+                    "JOIN doctor_patient dp ON u.id = dp.patient_id " +
+                    "WHERE dp.doctor_id = ? AND u.is_doctor = false";
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, doctorId);
+            statement = conn.prepareStatement(query);
+            statement.setInt(1, doctorId);
+            resultSet = statement.executeQuery();
 
-        ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User patient = new User();
+                patient.setId(resultSet.getInt("id"));
+                patient.setFirstName(resultSet.getString("first_name"));
+                patient.setLastName(resultSet.getString("last_name"));
+                patient.setEmail(resultSet.getString("email"));
+                patients.add(patient);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
 
-        while (resultSet.next()) {
-            User user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getBoolean("is_doctor")
-            );
-            patients.add(user);
         }
 
         return patients;
     }
 
-    public Doctor getDoctorById(int id) throws SQLException {
-        Doctor doctor = null;
-
-        String query = "SELECT * FROM users WHERE id = ? AND is_doctor = true";
-
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, id);
-
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()) {
-            doctor = new Doctor(
-                    resultSet.getInt("id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getString("email"),
-                    resultSet.getString("password"),
-                    resultSet.getBoolean("is_doctor"),
-                    resultSet.getString("medical_license_number"),
-                    resultSet.getString("specialization")
-            );
-
-        }
-
-        return doctor;
-    }
 
 }

@@ -33,10 +33,6 @@ public class HealthData {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public double getWeight() {
         return weight;
     }
@@ -71,10 +67,6 @@ public class HealthData {
 
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     @Override

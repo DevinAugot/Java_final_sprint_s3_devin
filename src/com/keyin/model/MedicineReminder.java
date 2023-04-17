@@ -1,6 +1,8 @@
 package com.keyin.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class MedicineReminder {
     private int id;
@@ -11,7 +13,10 @@ public class MedicineReminder {
     private Date startDate;
     private Date endDate;
 
-    public MedicineReminder(int id, int userId, String medicineName, String dosage, Date schedule, Date startDate, Date endDate) {
+    private LocalDateTime nextReminderTime;
+
+    public MedicineReminder(int id, int userId, String medicineName, String dosage, Date schedule,
+                            Date startDate, Date endDate) {
         this.id = id;
         this.userId = userId;
         this.medicineName = medicineName;
@@ -19,6 +24,15 @@ public class MedicineReminder {
         this.schedule = schedule;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+
+    public MedicineReminder() {
+
+    }
+
+    public void setNextReminderTime(LocalDateTime nextReminderTime) {
+        this.nextReminderTime = nextReminderTime;
     }
 
 
@@ -92,5 +106,5 @@ public class MedicineReminder {
                 ", endDate=" + endDate +
                 '}';
     }
-// Constructor, getters, and setters
+
 }
