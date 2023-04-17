@@ -128,12 +128,12 @@ public class HealthMonitoringApp {
         user8.setMedicalLicenseNum("");
         user8.setSpecialization("");
         users.add(user8);
-//
+//added this
 //        // Insert all users into the database
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {
             try {
-                boolean userCreated = userDao.createUser(user);
+                boolean userCreated = UserDao.createUser(conn,user);
                 if (userCreated) {
                     createdUsers.add(user);
                 }
