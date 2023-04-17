@@ -133,7 +133,7 @@ public class HealthMonitoringApp {
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {
             try {
-                boolean userCreated = userDao.createUser(user);
+                boolean userCreated = UserDao.createUser(conn,user);
                 if (userCreated) {
                     createdUsers.add(user);
                 }

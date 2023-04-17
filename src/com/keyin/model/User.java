@@ -3,7 +3,6 @@ package com.keyin.model;
 public class User {
 
 
-
     private String medicalLicenseNum;
     private int id;
     private String firstName;

@@ -8,24 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private static Connection connection;
+
 public UserDao() {
 
 }
-    public static boolean createUser(User user) throws SQLException {
+    public static boolean createUser(Connection connection, User user) throws SQLException {
         try {
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
             // Prepare the SQL query
-            String query = "INSERT INTO users (first_name,last_name,email,password,is_doctor," +
-                    "doctor_id)" + "VALUES(?,?,?,?,?,?)";
+            String query = "INSERT INTO users (first_name, last_name, email, password, is_doctor)" + "VALUES (?, ?, ?, ?, ?)";
             // Database logic to insert data using PREPARED Statement
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1,user.getFirstName());
-            statement.setString(2,user.getLastName());
-            statement.setString(3,user.getEmail());
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
             statement.setString(4, hashedPassword);
-            statement.setBoolean(5,user.isDoctor());
-            statement.setInt(6,user.getId());
+            statement.setBoolean(5, user.isDoctor());
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -33,7 +31,8 @@ public UserDao() {
         }
     }
 
-        public User getUserById(Connection conn, int id) throws SQLException {
+
+    public User getUserById(Connection conn, int id) throws SQLException {
             User user = null;
             PreparedStatement statement = null;
             ResultSet resultSet = null;
