@@ -1,11 +1,10 @@
 package com.keyin.model;
-import com.keyin.model.HealthDataDao;
-import java.sql.Connection;
-
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorPortalDao {
+
     private UserDao userDao;
     private HealthDataDao healthDataDao;
 
@@ -14,16 +13,21 @@ public class DoctorPortalDao {
         healthDataDao = new HealthDataDao();
     }
 
-    public Doctor getDoctorById(int doctorId) throws SQLException {
-        return userDao.getDoctorById(doctorId);
+    public Doctor getDoctorById(Connection conn,int doctorId) throws SQLException {
+        return userDao.getDoctorById(conn,doctorId);
     }
 
-    public List<User> getPatientsByDoctorId(int doctorId) throws SQLException {
-        return userDao.getPatientsByDoctorId(doctorId);
+    public List<User> getPatientsByDoctorId(Connection conn,int doctorId) throws SQLException {
+        return userDao.getPatientsByDoctorId(conn,doctorId);
     }
 
-    public List<HealthData> getHealthDataByPatientId(int patientId) throws SQLException {
-        return healthDataDao.getHealthDataByUserId(patientId);
+    public List<HealthData> getHealthDataByPatientId(Connection conn,int patientId) throws SQLException {
+        List<HealthData> healthDataList = new ArrayList<>();
+        HealthData healthData = healthDataDao.getHealthDataByUserId(conn,patientId);
+        healthDataList.add(healthData);
+        return healthDataList;
     }
+
+
 
 }

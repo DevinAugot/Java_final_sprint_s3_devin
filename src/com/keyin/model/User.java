@@ -2,6 +2,9 @@ package com.keyin.model;
 
 public class User {
 
+
+
+    private String medicalLicenseNum;
     private int id;
     private String firstName;
     private String lastName;
@@ -9,15 +12,41 @@ public class User {
     private String password;
     private boolean isDoctor;
 
-    public User(int id, String firstName, String lastName, String email, String password, boolean isDoctor) {
+
+
+    private String specialization;
+
+    public User(int id, String firstName, String lastName, String email, String password, boolean isDoctor,
+                String medicalLicenseNum,String specialization) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.isDoctor = isDoctor;
+        this.medicalLicenseNum = medicalLicenseNum;
+        this.specialization = specialization;
     }
 
+    public User() {
+
+    }
+
+
+    public String getMedicalLicenseNum() {
+        return medicalLicenseNum;
+    }
+
+    public void setMedicalLicenseNum(String medicalLicenseNum) {
+        this.medicalLicenseNum = medicalLicenseNum;
+    }
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
 
     public int getId() {
         return id;

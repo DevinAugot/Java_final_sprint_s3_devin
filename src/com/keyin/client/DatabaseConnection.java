@@ -203,7 +203,7 @@ public class DatabaseConnection {
     }
 
 
-    public void insertIntoHealthDataTable(Connection conn,int id, int user_id, double weight, double height, int steps,
+    public void insertIntoHealthDataTable(Connection conn,int id, int userId, double weight, double height, int steps,
                                           int heart_rate, Date date) {
         PreparedStatement statement = null;
         try {
@@ -212,7 +212,7 @@ public class DatabaseConnection {
                     "(?, ?, ?, ?, ?, ?, ?)";
             statement = conn.prepareStatement(query);
             statement.setInt(1, id);
-            statement.setInt(2, user_id);
+            statement.setInt(2, userId);
             statement.setDouble(3, weight);
             statement.setDouble(4,height);
             statement.setInt(5, steps);
@@ -305,6 +305,16 @@ public void insertIntoRecommendationsTable(Connection conn,int id, int user_id, 
         }
     }
 }
+    public ResultSet queryDatabase(Connection conn,String query) {
+        ResultSet rs = null;
+        try {
+            Statement statement = conn.createStatement();
+            rs = statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
 
 }
 
