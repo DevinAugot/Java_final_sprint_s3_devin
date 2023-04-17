@@ -17,7 +17,8 @@ public UserDao() {
         try {
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
             // Prepare the SQL query
-            String query = "INSERT INTO users (first_name, last_name, email, password, is_doctor)" + "VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO users (id,first_name, last_name, email, password, is_doctor)" + "VALUES (?, " +
+                    "?,?, ?, ?, ?)";
             // Database logic to insert data using PREPARED Statement
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getFirstName());
