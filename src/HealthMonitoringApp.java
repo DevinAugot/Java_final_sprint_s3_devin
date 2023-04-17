@@ -118,23 +118,31 @@ public class HealthMonitoringApp {
 //        user7.setSpecialization("");
 //        users.add(user7);
 //
-//        User user8 = new User();
-//        user8.setId(8);
-//        user8.setFirstName("Lynn");
-//        user8.setLastName("Butler");
-//        user8.setEmail("LynnB@gmail.com");
-//        user8.setPassword("Keyin2023");
-//        user8.setDoctor(false);
-//        user8.setMedicalLicenseNum("");
-//        user8.setSpecialization("");
-//        users.add(user8);
+        User user8 = new User();
+        user8.setId(8);
+        user8.setFirstName("Lynn");
+        user8.setLastName("Butler");
+        user8.setEmail("LynnB@gmail.com");
+        user8.setPassword("Keyin2023");
+        user8.setDoctor(false);
+        user8.setMedicalLicenseNum("");
+        user8.setSpecialization("");
+        users.add(user8);
 //
 //        // Insert all users into the database
-//        List<User> createdUsers = new ArrayList<>();
-//        for (User user : users) {
-//            User createdUser = userDao.createUser(conn, user);
-//            createdUsers.add(createdUser);
-//        }
+        List<User> createdUsers = new ArrayList<>();
+        for (User user : users) {
+            try {
+                boolean userCreated = userDao.createUser(user);
+                if (userCreated) {
+                    createdUsers.add(user);
+                }
+            } catch (SQLException e) {
+                // Log the error message with stack trace
+                System.err.println("Failed to create user: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
 
 
         //  QUERY TO GET ALL USERS ON SYSTEM
