@@ -12,6 +12,7 @@ public class UserDao {
 public UserDao() {
 
 }
+// fixed
     public static boolean createUser(Connection connection, User user) throws SQLException {
         try {
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
