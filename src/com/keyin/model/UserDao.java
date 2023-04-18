@@ -12,7 +12,7 @@ public class UserDao {
 public UserDao() {
 
 }
-// fixed
+
     public static boolean createUser(Connection connection, User user) throws SQLException {
         try {
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
@@ -203,17 +203,11 @@ public UserDao() {
             this.isDoctor = isDoctor;
         }
 
-        public String getUser() {
-            return user != null ? user.getFirstName() : null;
-        }
-
         public boolean isDoctor() {
             return isDoctor;
         }
 
-        public boolean isSuccess() {
-            return user != null;
-        }
+
     }
     public Doctor getDoctorById(Connection conn, int doctorId) throws SQLException {
 

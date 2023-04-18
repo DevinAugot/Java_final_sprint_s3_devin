@@ -7,26 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
-/**
- * The MedicineReminderManager class should have methods to add reminders, get reminders
- *  1. for a specific user, and
- *  2. get reminders that are DUE for a specific user.
- *
- *  You'll need to integrate this class with your application and database logic to
- *  1. store,
- *  2. update, and
- *  3. delete reminders as needed.
- */
-
-
-
-
 public class MedicineReminderManager {
-    //** // Create A Medicine Reminder
-    // Get Medicine Reminders By Patient Id
-    // Update Medicine Reminder
-    // Delete Medincine Reminder
 
     public static void createMedicineReminder(Connection conn, MedicineReminder medicineReminder) {
         PreparedStatement statement = null;
@@ -150,6 +131,10 @@ public class MedicineReminderManager {
         return rs;
     }
 
+
+    /** Kept these methods below because the potential is there to delete & update reminders but  i didnt use them in
+     *  my main however they do work
+     *  **/
     public void deleteMedicineReminder(Connection conn, int medicine_reminder_id) {
         PreparedStatement statement = null;
         try {

@@ -1,16 +1,12 @@
 package com.keyin.model;
-
 import java.sql.*;
-import java.util.List;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class HealthDataDao {
     /**
      * I didn't use a createHealthData method because I approached it from a different angle based on a user input menu
      * , it works just as well and inputs that information in my SQL DB
      */
-
 
     public boolean updateHealthData(Connection conn, HealthData healthData) throws SQLException {
         PreparedStatement statement = null;
@@ -97,36 +93,5 @@ public class HealthDataDao {
         }
 
         return healthData;
-    }
-
-
-    public int getStepsById(Connection conn, int id) throws SQLException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        int steps = 0;
-
-        try {
-            String query = "SELECT steps FROM health_data WHERE id = ?";
-            statement = conn.prepareStatement(query);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                steps = resultSet.getInt("steps");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return steps;
     }
 }

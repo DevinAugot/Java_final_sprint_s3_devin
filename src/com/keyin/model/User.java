@@ -2,7 +2,6 @@ package com.keyin.model;
 
 public class User {
 
-
     private String medicalLicenseNum;
     private int id;
     private String firstName;
@@ -10,8 +9,6 @@ public class User {
     private String email;
     private String password;
     private boolean isDoctor;
-
-
 
     private String specialization;
 

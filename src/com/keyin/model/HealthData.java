@@ -1,5 +1,4 @@
 package com.keyin.model;
-
 import java.sql.Date;
 
 public class HealthData {

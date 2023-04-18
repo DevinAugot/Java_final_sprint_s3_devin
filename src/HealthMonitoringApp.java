@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import com.keyin.service.MedicineReminderManager;
+
 public class HealthMonitoringApp {
     public static void main(String[] args) throws SQLException, InterruptedException {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.PostgresClient("health_management", "postgres", "Keyin2021");
 
         // Create Tables for information storage (Have all tables created)
-//        db.CreateUsersTable(conn,"Users");
-//        db.createDoctorPatientTable(conn,"doctor_patient");
-//        db.createHealthDataTable(conn,"health_data");
-//        db.createMedicineRemindersTable(conn,"medicine_reminders");
-//        db.createRecommendationsTable(conn,"recommendations");
+        db.CreateUsersTable(conn,"Users");
+        db.createDoctorPatientTable(conn,"doctor_patient");
+        db.createHealthDataTable(conn,"health_data");
+        db.createMedicineRemindersTable(conn,"medicine_reminders");
+        db.createRecommendationsTable(conn,"recommendations");
 
 
         // SQL QUERY
@@ -27,12 +28,12 @@ public class HealthMonitoringApp {
 
 
         // Insert into doc-patient table
-//        db.insertIntoDoctorPatientTable(conn,3,1);
-//        db.insertIntoDoctorPatientTable(conn,4,2);
-//        db.insertIntoDoctorPatientTable(conn,4,5);
-//        db.insertIntoDoctorPatientTable(conn,3,6);
-//        db.insertIntoDoctorPatientTable(conn,4,7);
-//        db.insertIntoDoctorPatientTable(conn,3,8);
+        db.insertIntoDoctorPatientTable(conn,3,1);
+        db.insertIntoDoctorPatientTable(conn,4,2);
+        db.insertIntoDoctorPatientTable(conn,4,5);
+        db.insertIntoDoctorPatientTable(conn,3,6);
+        db.insertIntoDoctorPatientTable(conn,4,7);
+        db.insertIntoDoctorPatientTable(conn,3,8);
 
 
         // user dao (creating New users)
@@ -41,93 +42,93 @@ public class HealthMonitoringApp {
 
         List<User> users = new ArrayList<>();
 
-//        User user1 = new User();
-//        user1.setId(1);
-//        user1.setFirstName("John");
-//        user1.setLastName("Doe");
-//        user1.setEmail("john.doe@example.com");
-//        user1.setPassword("my_password");
-//        user1.setDoctor(false);
-//        user1.setMedicalLicenseNum("");
-//        user1.setSpecialization("");
-//        users.add(user1);
-//
-//        User user2 = new User();
-//        user2.setId(2);
-//        user2.setFirstName("Jane");
-//        user2.setLastName("Doe");
-//        user2.setEmail("jane.doe@example.com");
-//        user2.setPassword("my_password123");
-//        user2.setDoctor(false);
-//        user2.setMedicalLicenseNum("");
-//        user2.setSpecialization("");
-//        users.add(user2);
-//
-//        User user3 = new User();
-//        user3.setId(3);
-//        user3.setFirstName("Dr.Jane");
-//        user3.setLastName("Doe");
-//        user3.setEmail("jane.doe@gmail.com");
-//        user3.setPassword("my_password321");
-//        user3.setDoctor(true);
-//        user3.setMedicalLicenseNum("123456");
-//        user3.setSpecialization("Pediatrics");
-//        users.add(user3);
-//
-//        User user4 = new User();
-//        user4.setId(4);
-//        user4.setFirstName("Dr.Joker");
-//        user4.setLastName("Smith");
-//        user4.setEmail("joker.smith@gmail.com");
-//        user4.setPassword("my_password122");
-//        user4.setDoctor(true);
-//        user4.setMedicalLicenseNum("654321");
-//        user4.setSpecialization("Cardiologist");
-//        users.add(user4);
-//
-//        User user5 = new User();
-//        user5.setId(5);
-//        user5.setFirstName("Ebuka");
-//        user5.setLastName("Ameafula");
-//        user5.setEmail("ebuka@gmail.com");
-//        user5.setPassword("Owlya123");
-//        user5.setDoctor(false);
-//        user5.setMedicalLicenseNum("");
-//        user5.setSpecialization("");
-//        users.add(user5);
+        User user1 = new User();
+        user1.setId(1);
+        user1.setFirstName("John");
+        user1.setLastName("Doe");
+        user1.setEmail("john.doe@example.com");
+        user1.setPassword("my_password");
+        user1.setDoctor(false);
+        user1.setMedicalLicenseNum("");
+        user1.setSpecialization("");
+        users.add(user1);
 
-//        User user6 = new User();
-//        user6.setId(6);
-//        user6.setFirstName("Devin");
-//        user6.setLastName("Augot");
-//        user6.setEmail("daugot22@gmail.com");
-//        user6.setPassword("Keyin2021");
-//        user6.setDoctor(false);
-//        user6.setMedicalLicenseNum("");
-//        user6.setSpecialization("");
-//        users.add(user6);
-//
-//        User user7 = new User();
-//        user7.setId(7);
-//        user7.setFirstName("Allison");
-//        user7.setLastName("Butler");
-//        user7.setEmail("abutler@gmail.com");
-//        user7.setPassword("Keyin2022");
-//        user7.setDoctor(false);
-//        user7.setMedicalLicenseNum("");
-//        user7.setSpecialization("");
-//        users.add(user7);
-//
-//        User user8 = new User();
-//        user8.setId(8);
-//        user8.setFirstName("Lynn");
-//        user8.setLastName("Butler");
-//        user8.setEmail("LynnB@gmail.com");
-//        user8.setPassword("Keyin2023");
-//        user8.setDoctor(false);
-//        user8.setMedicalLicenseNum("");
-//        user8.setSpecialization("");
-//        users.add(user8);
+        User user2 = new User();
+        user2.setId(2);
+        user2.setFirstName("Jane");
+        user2.setLastName("Doe");
+        user2.setEmail("jane.doe@example.com");
+        user2.setPassword("my_password123");
+        user2.setDoctor(false);
+        user2.setMedicalLicenseNum("");
+        user2.setSpecialization("");
+        users.add(user2);
+
+        User user3 = new User();
+        user3.setId(3);
+        user3.setFirstName("Dr.Jane");
+        user3.setLastName("Doe");
+        user3.setEmail("jane.doe@gmail.com");
+        user3.setPassword("my_password321");
+        user3.setDoctor(true);
+        user3.setMedicalLicenseNum("123456");
+        user3.setSpecialization("Pediatrics");
+        users.add(user3);
+
+        User user4 = new User();
+        user4.setId(4);
+        user4.setFirstName("Dr.Joker");
+        user4.setLastName("Smith");
+        user4.setEmail("joker.smith@gmail.com");
+        user4.setPassword("my_password122");
+        user4.setDoctor(true);
+        user4.setMedicalLicenseNum("654321");
+        user4.setSpecialization("Cardiologist");
+        users.add(user4);
+
+        User user5 = new User();
+        user5.setId(5);
+        user5.setFirstName("Ebuka");
+        user5.setLastName("Ameafula");
+        user5.setEmail("ebuka@gmail.com");
+        user5.setPassword("Owlya123");
+        user5.setDoctor(false);
+        user5.setMedicalLicenseNum("");
+        user5.setSpecialization("");
+        users.add(user5);
+
+        User user6 = new User();
+        user6.setId(6);
+        user6.setFirstName("Devin");
+        user6.setLastName("Augot");
+        user6.setEmail("daugot22@gmail.com");
+        user6.setPassword("Keyin2021");
+        user6.setDoctor(false);
+        user6.setMedicalLicenseNum("");
+        user6.setSpecialization("");
+        users.add(user6);
+
+        User user7 = new User();
+        user7.setId(7);
+        user7.setFirstName("Allison");
+        user7.setLastName("Butler");
+        user7.setEmail("abutler@gmail.com");
+        user7.setPassword("Keyin2022");
+        user7.setDoctor(false);
+        user7.setMedicalLicenseNum("");
+        user7.setSpecialization("");
+        users.add(user7);
+
+        User user8 = new User();
+        user8.setId(8);
+        user8.setFirstName("Lynn");
+        user8.setLastName("Butler");
+        user8.setEmail("LynnB@gmail.com");
+        user8.setPassword("Keyin2023");
+        user8.setDoctor(false);
+        user8.setMedicalLicenseNum("");
+        user8.setSpecialization("");
+        users.add(user8);
 
 
         User user9 = new User();
@@ -140,8 +141,8 @@ public class HealthMonitoringApp {
         user9.setMedicalLicenseNum("");
         user9.setSpecialization("");
         users.add(user9);
-////added this
-////        // Insert all users into the database
+
+        // Insert all users into the database
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {
             try {
@@ -175,18 +176,18 @@ public class HealthMonitoringApp {
             counter++;
         }
 
-//        // get the user at index 0 in the list and update their first name & last name
-//        User userToUpdate = listOfUsers.get(0);
-//        userToUpdate.setFirstName("Ray");
-//        userToUpdate.setLastName("charles");
-//
-//        // call the userDao to update the user in the database
-//        userDao.updateUser(conn, userToUpdate);
-//
-//        // get the user at index 0 in the list and delete them
-//        User userToDelete = listOfUsers.get(0);
-//        int id = userToDelete.getId();
-//        userDao.deleteUser(conn, id);
+        // get the user at index 0 in the list and update their first name & last name
+        User userToUpdate = users.get(1);
+        userToUpdate.setFirstName("Ray");
+        userToUpdate.setLastName("charles");
+
+        // call the userDao to update the user in the database
+        userDao.updateUser(conn, userToUpdate);
+
+        // get the user at index 0 in the list and delete them
+        User userToDelete = listOfUsers.get(0);
+        int id = userToDelete.getId();
+        userDao.deleteUser(conn, id);
 
 
         // calling getUserById method to get user by ID
@@ -220,10 +221,10 @@ public class HealthMonitoringApp {
         }
 
 
-        /** The menu system below is based on already existing users & They are dependent on if they are a patient
+        /* The menu system below is based on already existing users & They are dependent on if they are a patient
          *  or
          * doctor they will have access to particular portals (Look above for emails and passwords to test for use
-         * cases heres an example that's a patient Email : ebuka@gmail.com password = Owlya123 , heres doctor
+         * cases but here's an example that's a patient Email : ebuka@gmail.com password = Owlya123 , here's a doctor
          * credentials that lead to the doctor portal Email: joker.smith@gmail.com Password: my_password122
          * ) */
 
@@ -314,7 +315,7 @@ public class HealthMonitoringApp {
                             // Prompt the user for input
                             Scanner scannerHealthData = new Scanner(System.in);
                             System.out.println("\nRegister your new user ID:");
-                            int id = scannerHealthData.nextInt();
+                            int newId = scannerHealthData.nextInt();
                             System.out.println("\nEnter your new user ID:");
                             int userId = scannerHealthData.nextInt();
                             System.out.println("\nEnter your weight in kg:");
@@ -329,7 +330,7 @@ public class HealthMonitoringApp {
                             String date = scannerHealthData.next();
 
                             // Insert the data into the health_data table
-                            db.insertIntoHealthDataTable(conn,id, userId, weight, height, steps, heartRate,
+                            db.insertIntoHealthDataTable(conn,newId, userId, weight, height, steps, heartRate,
                                     Date.valueOf(date));
 
                             System.out.println("\nData inserted successfully!");
@@ -448,7 +449,6 @@ public class HealthMonitoringApp {
                     }
                 }
 
-                 /// mabye i should create more?
                 // Creating a medicine reminder
                 MedicineReminder medicineReminder1 = new MedicineReminder(9, 9, "Warafrin", "20MG",
                         Date.valueOf("2023-04-18"), Date.valueOf("2023-04-23"), Date.valueOf("2023-04-28"));
@@ -458,7 +458,9 @@ public class HealthMonitoringApp {
                 Thread.sleep(1500);
 
                 // Get reminders for a specific user by ID and users name
+                MedicineReminderManager.getMedicineReminderByUserId(conn, 1);
                 MedicineReminderManager.getMedicineReminderByUserId(conn, 9);
+                MedicineReminderManager.getMedicineReminderByUserId(conn, 6);
 
                 MedicineReminderManager.getMedicineReminderByUserName(conn, "Bob", "Butler");
 
@@ -466,8 +468,3 @@ public class HealthMonitoringApp {
             }
         }
     }
-
-
-
-
-
