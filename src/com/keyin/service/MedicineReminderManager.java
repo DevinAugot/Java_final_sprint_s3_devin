@@ -58,11 +58,10 @@ public class MedicineReminderManager {
             }
             System.out.println("Medicine Reminder For Patient With ID: " + id);
             System.out.println();
-            int reminderCount = 1;
+            int reminderCounter = 1;
             while (rs.next()) {
                 System.out.println(" ");
-                System.out.println("Reminder # " + reminderCount++);
-                System.out.println("================================");
+                    System.out.println("~*************Reminder Number: "+ (reminderCounter++) + "******************~");
                 int medReminderId = rs.getInt("id");
                 int userId = rs.getInt("user_id");
                 String medName = rs.getString("medicine_name");
