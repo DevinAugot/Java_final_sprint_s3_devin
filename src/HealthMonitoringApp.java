@@ -33,7 +33,7 @@ public class HealthMonitoringApp {
 //        db.insertIntoDoctorPatientTable(conn,3,6);
 //        db.insertIntoDoctorPatientTable(conn,4,7);
 //        db.insertIntoDoctorPatientTable(conn,3,8);
-//        db.insertIntoDoctorPatientTable(conn,3,9);
+
 
         // user dao (creating New users)
 
@@ -129,20 +129,19 @@ public class HealthMonitoringApp {
 //        user8.setSpecialization("");
 //        users.add(user8);
 
-//
-//        User user9 = new User();
-//        user9.setId(9);
-//        user9.setFirstName("Bob");
-//        user9.setLastName("Butler");
-//        user9.setEmail("Bob@gmail.com");
-//        user9.setPassword("password123");
-//        user9.setDoctor(false);
-//        user9.setMedicalLicenseNum("");
-//        user9.setSpecialization("");
-//        users.add(user9);
 
-
-         // Insert all users into the database
+        User user9 = new User();
+        user9.setId(9);
+        user9.setFirstName("Bob");
+        user9.setLastName("Butler");
+        user9.setEmail("Bob@gmail.com");
+        user9.setPassword("password123");
+        user9.setDoctor(false);
+        user9.setMedicalLicenseNum("");
+        user9.setSpecialization("");
+        users.add(user9);
+////added this
+////        // Insert all users into the database
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {
             try {
