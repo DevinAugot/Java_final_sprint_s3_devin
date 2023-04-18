@@ -118,18 +118,30 @@ public class HealthMonitoringApp {
 //        user7.setSpecialization("");
 //        users.add(user7);
 //
-        User user8 = new User();
-        user8.setId(8);
-        user8.setFirstName("Lynn");
-        user8.setLastName("Butler");
-        user8.setEmail("LynnB@gmail.com");
-        user8.setPassword("Keyin2023");
-        user8.setDoctor(false);
-        user8.setMedicalLicenseNum("");
-        user8.setSpecialization("");
-        users.add(user8);
-//added this
-//        // Insert all users into the database
+//        User user8 = new User();
+//        user8.setId(8);
+//        user8.setFirstName("Lynn");
+//        user8.setLastName("Butler");
+//        user8.setEmail("LynnB@gmail.com");
+//        user8.setPassword("Keyin2023");
+//        user8.setDoctor(false);
+//        user8.setMedicalLicenseNum("");
+//        user8.setSpecialization("");
+//        users.add(user8);
+
+
+        User user9 = new User();
+        user9.setId(9);
+        user9.setFirstName("Bob");
+        user9.setLastName("Butler");
+        user9.setEmail("Bob@gmail.com");
+        user9.setPassword("password123");
+        user9.setDoctor(false);
+        user9.setMedicalLicenseNum("");
+        user9.setSpecialization("");
+        users.add(user9);
+////added this
+////        // Insert all users into the database
         List<User> createdUsers = new ArrayList<>();
         for (User user : users) {
             try {
@@ -301,7 +313,9 @@ public class HealthMonitoringApp {
                         case 1:
                             // Prompt the user for input
                             Scanner scannerHealthData = new Scanner(System.in);
-                            System.out.println("\nEnter your user ID:");
+                            System.out.println("\nRegister your new user ID:");
+                            int id = scannerHealthData.nextInt();
+                            System.out.println("\nEnter your new user ID:");
                             int userId = scannerHealthData.nextInt();
                             System.out.println("\nEnter your weight in kg:");
                             double weight = scannerHealthData.nextDouble();
@@ -315,7 +329,8 @@ public class HealthMonitoringApp {
                             String date = scannerHealthData.next();
 
                             // Insert the data into the health_data table
-                            db.insertIntoHealthDataTable(conn, 1, userId, weight, height, steps, heartRate, Date.valueOf(date));
+                            db.insertIntoHealthDataTable(conn,id, userId, weight, height, steps, heartRate,
+                                    Date.valueOf(date));
 
                             System.out.println("\nData inserted successfully!");
                             break;
@@ -432,18 +447,20 @@ public class HealthMonitoringApp {
                             System.out.println("\nInvalid option. Please enter a valid option.");
                     }
                 }
+
+                 /// mabye i should create more?
                 // Creating a medicine reminder
-                MedicineReminder medicineReminder1 = new MedicineReminder(6, 6, "Multi-Vitamin", "200MG",
-                        Date.valueOf("2023-04-20"), Date.valueOf("2023-04-20"), Date.valueOf("2023-04-26"));
+                MedicineReminder medicineReminder1 = new MedicineReminder(9, 9, "Warafrin", "20MG",
+                        Date.valueOf("2023-04-18"), Date.valueOf("2023-04-23"), Date.valueOf("2023-04-28"));
 
                 MedicineReminderManager.createMedicineReminder(conn, medicineReminder1);
 
-                Thread.sleep(3000);
+                Thread.sleep(1500);
 
                 // Get reminders for a specific user by ID and users name
-                MedicineReminderManager.getMedicineReminderByUserId(conn, 6);
+                MedicineReminderManager.getMedicineReminderByUserId(conn, 9);
 
-                MedicineReminderManager.getMedicineReminderByUserName(conn, "Devin", "Augot");
+                MedicineReminderManager.getMedicineReminderByUserName(conn, "Bob", "Butler");
 
 
             }
