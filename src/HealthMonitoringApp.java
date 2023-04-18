@@ -16,24 +16,24 @@ public class HealthMonitoringApp {
         Connection conn = db.PostgresClient("health_management", "postgres", "Keyin2021");
 
         // Create Tables for information storage (Have all tables created)
-        db.CreateUsersTable(conn,"Users");
-        db.createDoctorPatientTable(conn,"doctor_patient");
-        db.createHealthDataTable(conn,"health_data");
-        db.createMedicineRemindersTable(conn,"medicine_reminders");
-        db.createRecommendationsTable(conn,"recommendations");
-
+//        db.CreateUsersTable(conn,"Users");
+//        db.createDoctorPatientTable(conn,"doctor_patient");
+//        db.createHealthDataTable(conn,"health_data");
+//        db.createMedicineRemindersTable(conn,"medicine_reminders");
+//        db.createRecommendationsTable(conn,"recommendations");
+//
 
         // SQL QUERY
         String GET_ALL_USERS = "SELECT * FROM Users";
 
 
         // Insert into doc-patient table
-        db.insertIntoDoctorPatientTable(conn,3,1);
-        db.insertIntoDoctorPatientTable(conn,4,2);
-        db.insertIntoDoctorPatientTable(conn,4,5);
-        db.insertIntoDoctorPatientTable(conn,3,6);
-        db.insertIntoDoctorPatientTable(conn,4,7);
-        db.insertIntoDoctorPatientTable(conn,3,8);
+//        db.insertIntoDoctorPatientTable(conn,3,1);
+//        db.insertIntoDoctorPatientTable(conn,4,2);
+//        db.insertIntoDoctorPatientTable(conn,4,5);
+//        db.insertIntoDoctorPatientTable(conn,3,6);
+//        db.insertIntoDoctorPatientTable(conn,4,7);
+//        db.insertIntoDoctorPatientTable(conn,3,8);
 
 
         // user dao (creating New users)
@@ -41,121 +41,121 @@ public class HealthMonitoringApp {
         UserDao userDao = new UserDao();
 
         List<User> users = new ArrayList<>();
-
-        User user1 = new User();
-        user1.setId(1);
-        user1.setFirstName("John");
-        user1.setLastName("Doe");
-        user1.setEmail("john.doe@example.com");
-        user1.setPassword("my_password");
-        user1.setDoctor(false);
-        user1.setMedicalLicenseNum("");
-        user1.setSpecialization("");
-        users.add(user1);
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setFirstName("Jane");
-        user2.setLastName("Doe");
-        user2.setEmail("jane.doe@example.com");
-        user2.setPassword("my_password123");
-        user2.setDoctor(false);
-        user2.setMedicalLicenseNum("");
-        user2.setSpecialization("");
-        users.add(user2);
-
-        User user3 = new User();
-        user3.setId(3);
-        user3.setFirstName("Dr.Jane");
-        user3.setLastName("Doe");
-        user3.setEmail("jane.doe@gmail.com");
-        user3.setPassword("my_password321");
-        user3.setDoctor(true);
-        user3.setMedicalLicenseNum("123456");
-        user3.setSpecialization("Pediatrics");
-        users.add(user3);
-
-        User user4 = new User();
-        user4.setId(4);
-        user4.setFirstName("Dr.Joker");
-        user4.setLastName("Smith");
-        user4.setEmail("joker.smith@gmail.com");
-        user4.setPassword("my_password122");
-        user4.setDoctor(true);
-        user4.setMedicalLicenseNum("654321");
-        user4.setSpecialization("Cardiologist");
-        users.add(user4);
-
-        User user5 = new User();
-        user5.setId(5);
-        user5.setFirstName("Ebuka");
-        user5.setLastName("Ameafula");
-        user5.setEmail("ebuka@gmail.com");
-        user5.setPassword("Owlya123");
-        user5.setDoctor(false);
-        user5.setMedicalLicenseNum("");
-        user5.setSpecialization("");
-        users.add(user5);
-
-        User user6 = new User();
-        user6.setId(6);
-        user6.setFirstName("Devin");
-        user6.setLastName("Augot");
-        user6.setEmail("daugot22@gmail.com");
-        user6.setPassword("Keyin2021");
-        user6.setDoctor(false);
-        user6.setMedicalLicenseNum("");
-        user6.setSpecialization("");
-        users.add(user6);
-
-        User user7 = new User();
-        user7.setId(7);
-        user7.setFirstName("Allison");
-        user7.setLastName("Butler");
-        user7.setEmail("abutler@gmail.com");
-        user7.setPassword("Keyin2022");
-        user7.setDoctor(false);
-        user7.setMedicalLicenseNum("");
-        user7.setSpecialization("");
-        users.add(user7);
-
-        User user8 = new User();
-        user8.setId(8);
-        user8.setFirstName("Lynn");
-        user8.setLastName("Butler");
-        user8.setEmail("LynnB@gmail.com");
-        user8.setPassword("Keyin2023");
-        user8.setDoctor(false);
-        user8.setMedicalLicenseNum("");
-        user8.setSpecialization("");
-        users.add(user8);
-
-
-        User user9 = new User();
-        user9.setId(9);
-        user9.setFirstName("Bob");
-        user9.setLastName("Butler");
-        user9.setEmail("Bob@gmail.com");
-        user9.setPassword("password123");
-        user9.setDoctor(false);
-        user9.setMedicalLicenseNum("");
-        user9.setSpecialization("");
-        users.add(user9);
-
-        // Insert all users into the database
-        List<User> createdUsers = new ArrayList<>();
-        for (User user : users) {
-            try {
-                boolean userCreated = UserDao.createUser(conn,user);
-                if (userCreated) {
-                    createdUsers.add(user);
-                }
-            } catch (SQLException e) {
-                // Log the error message with stack trace
-                System.err.println("Failed to create user: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
+//
+//        User user1 = new User();
+//        user1.setId(1);
+//        user1.setFirstName("John");
+//        user1.setLastName("Doe");
+//        user1.setEmail("john.doe@example.com");
+//        user1.setPassword("my_password");
+//        user1.setDoctor(false);
+//        user1.setMedicalLicenseNum("");
+//        user1.setSpecialization("");
+//        users.add(user1);
+//
+//        User user2 = new User();
+//        user2.setId(2);
+//        user2.setFirstName("Jane");
+//        user2.setLastName("Doe");
+//        user2.setEmail("jane.doe@example.com");
+//        user2.setPassword("my_password123");
+//        user2.setDoctor(false);
+//        user2.setMedicalLicenseNum("");
+//        user2.setSpecialization("");
+//        users.add(user2);
+//
+//        User user3 = new User();
+//        user3.setId(3);
+//        user3.setFirstName("Dr.Jane");
+//        user3.setLastName("Doe");
+//        user3.setEmail("jane.doe@gmail.com");
+//        user3.setPassword("my_password321");
+//        user3.setDoctor(true);
+//        user3.setMedicalLicenseNum("123456");
+//        user3.setSpecialization("Pediatrics");
+//        users.add(user3);
+//
+//        User user4 = new User();
+//        user4.setId(4);
+//        user4.setFirstName("Dr.Joker");
+//        user4.setLastName("Smith");
+//        user4.setEmail("joker.smith@gmail.com");
+//        user4.setPassword("my_password122");
+//        user4.setDoctor(true);
+//        user4.setMedicalLicenseNum("654321");
+//        user4.setSpecialization("Cardiologist");
+//        users.add(user4);
+//
+//        User user5 = new User();
+//        user5.setId(5);
+//        user5.setFirstName("Ebuka");
+//        user5.setLastName("Ameafula");
+//        user5.setEmail("ebuka@gmail.com");
+//        user5.setPassword("Owlya123");
+//        user5.setDoctor(false);
+//        user5.setMedicalLicenseNum("");
+//        user5.setSpecialization("");
+//        users.add(user5);
+//
+//        User user6 = new User();
+//        user6.setId(6);
+//        user6.setFirstName("Devin");
+//        user6.setLastName("Augot");
+//        user6.setEmail("daugot22@gmail.com");
+//        user6.setPassword("Keyin2021");
+//        user6.setDoctor(false);
+//        user6.setMedicalLicenseNum("");
+//        user6.setSpecialization("");
+//        users.add(user6);
+//
+//        User user7 = new User();
+//        user7.setId(7);
+//        user7.setFirstName("Allison");
+//        user7.setLastName("Butler");
+//        user7.setEmail("abutler@gmail.com");
+//        user7.setPassword("Keyin2022");
+//        user7.setDoctor(false);
+//        user7.setMedicalLicenseNum("");
+//        user7.setSpecialization("");
+//        users.add(user7);
+//
+//        User user8 = new User();
+//        user8.setId(8);
+//        user8.setFirstName("Lynn");
+//        user8.setLastName("Butler");
+//        user8.setEmail("LynnB@gmail.com");
+//        user8.setPassword("Keyin2023");
+//        user8.setDoctor(false);
+//        user8.setMedicalLicenseNum("");
+//        user8.setSpecialization("");
+//        users.add(user8);
+//
+//
+//        User user9 = new User();
+//        user9.setId(9);
+//        user9.setFirstName("Bob");
+//        user9.setLastName("Butler");
+//        user9.setEmail("Bob@gmail.com");
+//        user9.setPassword("password123");
+//        user9.setDoctor(false);
+//        user9.setMedicalLicenseNum("");
+//        user9.setSpecialization("");
+//        users.add(user9);
+//
+//        // Insert all users into the database
+//        List<User> createdUsers = new ArrayList<>();
+//        for (User user : users) {
+//            try {
+//                boolean userCreated = UserDao.createUser(conn,user);
+//                if (userCreated) {
+//                    createdUsers.add(user);
+//                }
+//            } catch (SQLException e) {
+//                // Log the error message with stack trace
+//                System.err.println("Failed to create user: " + e.getMessage());
+//                e.printStackTrace();
+//            }
+//        }
 
 
         //  QUERY TO GET ALL USERS ON SYSTEM
@@ -177,17 +177,17 @@ public class HealthMonitoringApp {
         }
 
         // get the user at index 0 in the list and update their first name & last name
-        User userToUpdate = users.get(1);
-        userToUpdate.setFirstName("Ray");
-        userToUpdate.setLastName("charles");
-
-        // call the userDao to update the user in the database
-        userDao.updateUser(conn, userToUpdate);
-
-        // get the user at index 0 in the list and delete them
-        User userToDelete = listOfUsers.get(0);
-        int id = userToDelete.getId();
-        userDao.deleteUser(conn, id);
+//        User userToUpdate = users.get(1);
+//        userToUpdate.setFirstName("Ray");
+//        userToUpdate.setLastName("charles");
+//
+//        // call the userDao to update the user in the database
+//        userDao.updateUser(conn, userToUpdate);
+//
+//        // get the user at index 0 in the list and delete them
+//        User userToDelete = listOfUsers.get(0);
+//        int id = userToDelete.getId();
+//        userDao.deleteUser(conn, id);
 
 
         // calling getUserById method to get user by ID

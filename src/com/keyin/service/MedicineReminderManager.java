@@ -56,13 +56,13 @@ public class MedicineReminderManager {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            System.out.println("Medicine Reminder For Patient With ID: " + id);
+            System.out.println("\n" +"Medicine Reminder For Patient With ID: " + id);
             System.out.println();
-            int reminderCount = 1;
+            int reminderCounter = 1;
             while (rs.next()) {
                 System.out.println(" ");
-                System.out.println("Reminder # " + reminderCount++);
-                System.out.println("================================");
+                System.out.println("~************* Reminder Number: " + (reminderCounter++) + " " +
+                        " ******************~");
                 int medReminderId = rs.getInt("id");
                 int userId = rs.getInt("user_id");
                 String medName = rs.getString("medicine_name");
@@ -76,7 +76,7 @@ public class MedicineReminderManager {
                 if (endDate.toLocalDate().isBefore(LocalDateTime.now().toLocalDate())) {
                     System.out.println("Med Reminder Is Now Expired");
                 } else {
-                    System.out.println("Med Reminder For User: " + fname + " " + lname);
+                    System.out.println("Medicine Reminder For User: " + fname + " " + lname);
                     System.out.println("User ID: " + userId);
                     System.out.println("Medicine Name: " + medName);
                     System.out.println("Dosage: " + dosage);
@@ -92,7 +92,7 @@ public class MedicineReminderManager {
     }
 
     public static ResultSet getMedicineReminderByUserName(Connection conn, String first_name, String last_name) {
-        int reminderCounter = 1;
+
         ResultSet rs = null;
         try {
             String sql = "SELECT Mr.*, u.first_name,u.last_name,u.is_doctor\n" + "from medicine_reminders Mr\n" + "INNER Join users u ON Mr.user_id = u.id\n" + "WHERE u.first_name = ? and u.last_name = ?";
@@ -100,9 +100,11 @@ public class MedicineReminderManager {
             prepareStatement.setString(1, first_name);
             prepareStatement.setString(2, last_name);
             rs = prepareStatement.executeQuery();
-            System.out.println("Medicine Reminder For Patient With Name: " + first_name + " " + last_name);
+            System.out.println("\n"+"Medicine Reminder For Patient With Name: " + first_name + " " + last_name);
+            int reminderCounter2 = 1;
             while (rs.next()) {
-                System.out.println("~*************Reminder Number: "+ (reminderCounter++) + "******************~");
+
+                System.out.println("~************* Reminder Number: "+ (reminderCounter2++) + " ******************~");
                 int medReminderId = rs.getInt("id");
                 int userId = rs.getInt("user_id");
                 String medName = rs.getString("medicine_name");
