@@ -15,7 +15,7 @@ public class MedicineReminderManager {
             String query = "INSERT INTO medicine_reminders (id,user_id, medicine_name, dosage, schedule,start_date," +
                     "end_date) VALUES (?, ?, ?, ?, ?,?,?)";
             statement = conn.prepareStatement(query);
-            statement.setInt(1, medicineReminder.getUserId());
+            statement.setInt(1, medicineReminder.getId());
             statement.setInt(2, medicineReminder.getUserId());
             statement.setString(3, medicineReminder.getMedicineName());
             statement.setString(4, medicineReminder.getDosage());
